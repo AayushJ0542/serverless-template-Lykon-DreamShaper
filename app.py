@@ -22,13 +22,14 @@ def inference(model_inputs:dict) -> dict:
 
     # Parse out your arguments
     prompt = model_inputs.get('prompt', None)
+    negative_prompt = model_inputs.get('negative_prompt', None)
     steps = model_inputs.get('num_inference_steps', 50)
     scale = model_inputs.get('guidance_scale', 7)
     if prompt == None:
         return {'message': "No prompt provided"}
     
     # Run the model
-    result = model(prompt, num_inference_steps=steps, guidance_scale=scale)
+    result = model(prompt,negative_prompt, num_inference_steps=steps, guidance_scale=scale)
 
     # Check if result is an image or text
     image = result.images[0]
